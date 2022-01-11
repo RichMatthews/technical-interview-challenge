@@ -3,6 +3,7 @@ import { useMemo } from 'react'
 import styled from 'styled-components'
 import { useCallback, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { formatName } from 'utils/formatName'
 
 const Container = styled.div`
   display: flex;
@@ -17,8 +18,7 @@ const DogBreedInput = styled.input`
 }`
 
 const FileInput = styled.input`
-    background: transparent;
-    margin-bottom: 10px;
+    display: none;
 `
 
 const Button = styled.button`
@@ -26,6 +26,7 @@ const Button = styled.button`
     border: 1px solid black;
     border-radius: 5px;
     padding: 5px;
+    margin-top: 10px;
 `
 
 export const Add = () => {
@@ -40,7 +41,8 @@ export const Add = () => {
 
     const endpoint = useCallback(() => {
         const formData = new FormData()
-        formData.append('file123', selectedFile)
+        formData.append('dogBreed', dogBreed)
+        formData.append('dogFile', selectedFile)
 
         fetch('http://localhost:4000/upload', {
             method: 'POST',
@@ -49,10 +51,10 @@ export const Add = () => {
             .then((r) => r.json())
             .then(() => navigate('/'))
             .catch((e) => console.log(e))
-    }, [navigate, selectedFile])
+    }, [dogBreed, navigate, selectedFile])
 
     const setBreed = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setDogBreed(event.target.value)
+        setDogBreed(formatName(event.target.value))
     }
 
     const disabled = useMemo(() => {
@@ -63,7 +65,9 @@ export const Add = () => {
         <Container>
             <h3>Add a new dog breed</h3>
             <DogBreedInput placeholder="add dog breed" onChange={setBreed} />
-            <FileInput type="file" name="file123" onChange={changeHandler} />
+            <FileInput type="file" id="files" name="dogFile" onChange={changeHandler} style={{ display: 'none' }} />
+            <label htmlFor="files">Upload dog photo</label>
+
             <Button onClick={endpoint} disabled={disabled}>
                 Submit dog breed
             </Button>
