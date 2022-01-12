@@ -25,22 +25,4 @@ describe('Home Component', () => {
         expect(screen.getByText('Border Collie')).toBeTruthy()
         expect(screen.getByText('+')).toBeTruthy()
     })
-
-    // it('should redirect to the /add route once the add button is clicked', async () => {
-    //     jest.spyOn(hooks, 'useCustomQuery').mockReturnValue({
-    //         data: [
-    //             { id: 'german_shepherd', image: 'germanshepherd.jpg' },
-    //             { id: 'border_collie', image: 'bordercollie.jpg' },
-    //         ],
-    //     })
-    //     render(<Home />, { wrapper: MemoryRouter })
-    //     expect(screen.getByText('+')).toBeTruthy()
-    //     expect(screen.queryByText('Add a new dog breed')).toBeFalsy()
-
-    //     fireEvent.click(screen.getByText('+'))
-
-    //     await waitFor(() => {
-    //         expect(screen.getByText('Add a new dog breed')).toBeTruthy()
-    //     })
-    // })
 })
