@@ -5,12 +5,11 @@
 
 node_modules
 .cache
-dist# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+dist#
 
 # dependencies
 /node_modules
-/.pnp
-.pnp.js
+package-lock.json
 
 # testing
 /coverage

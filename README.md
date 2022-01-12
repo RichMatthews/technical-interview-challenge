@@ -10,6 +10,10 @@ then
 
 `cd technical-interview-challenge`
 
+then
+
+`npm i`
+
 You can run the app by opening another terminal.
 
 In the first terminal start the server with: `npm run start-server`, in the second, run the app with `npm run start-app`
