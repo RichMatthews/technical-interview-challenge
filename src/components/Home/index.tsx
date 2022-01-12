@@ -1,7 +1,9 @@
+import { useCustomQuery } from 'hooks/useCustomQuery'
 import React from 'react'
-import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
+import { query } from 'queries/getDogs'
+import { Dog } from 'types'
 import { formatName } from 'utils/formatName'
 
 const Container = styled.div`
@@ -23,7 +25,6 @@ const Item = styled.div`
     border: 1px solid black;
     border-radius: 5px;
     display: flex;
-    font-family: montserrat;
     justify-content: center;
     height: 160px;
     margin: 5px;
@@ -32,33 +33,25 @@ const Item = styled.div`
 `
 
 const StyledLink = styled(Link)`
-    padding: 5;
+    padding: 5px;
     text-decoration: none;
 `
 
 export const Home = () => {
-    const [images, setImages] = useState([])
-
-    useEffect(() => {
-        fetch('http://localhost:4000/dogs', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                query: `query GetDogs{
-                    dogs
-                }`,
-            }),
-        })
-            .then((res) => res.json())
-            .then((res) => setImages(JSON.parse(res?.data.dogs)))
-    }, [])
+    const { data } = useCustomQuery<Dog[]>({
+        endpoint: 'dogs',
+        body: JSON.stringify({
+            query,
+        }),
+        dataPoint: 'dogs',
+    })
 
     return (
         <Container>
-            <h3 style={{ fontFamily: 'montserrat' }}>Dog breeds</h3>
+            <h3>Dog breeds</h3>
             <ItemsContainer>
-                {images.map((dog) => (
-                    <StyledLink to={`${dog.id}`}>
+                {data?.map((dog: Dog) => (
+                    <StyledLink to={`${dog.id}`} key={dog?.id}>
                         <Item>{formatName(dog.id)}</Item>
                     </StyledLink>
                 ))}

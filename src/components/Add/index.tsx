@@ -32,14 +32,13 @@ const Button = styled.button`
 export const Add = () => {
     const [selectedFile, setSelectedFile] = useState<File>()
     const [dogBreed, setDogBreed] = useState('')
-
     const navigate = useNavigate()
 
     const changeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
         setSelectedFile(event.target.files[0])
     }
 
-    const endpoint = useCallback(() => {
+    const submitDogBreed = useCallback(() => {
         const formData = new FormData()
         formData.append('dogBreed', dogBreed)
         formData.append('dogFile', selectedFile)
@@ -48,9 +47,8 @@ export const Add = () => {
             method: 'POST',
             body: formData,
         })
-            .then((r) => r.json())
+            .then((res) => res.json())
             .then(() => navigate('/'))
-            .catch((e) => console.log(e))
     }, [dogBreed, navigate, selectedFile])
 
     const setBreed = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -65,10 +63,9 @@ export const Add = () => {
         <Container>
             <h3>Add a new dog breed</h3>
             <DogBreedInput placeholder="add dog breed" onChange={setBreed} />
-            <FileInput type="file" id="files" name="dogFile" onChange={changeHandler} style={{ display: 'none' }} />
+            <FileInput type="file" id="files" name="dogFile" onChange={changeHandler} />
             <label htmlFor="files">Upload dog photo</label>
-
-            <Button onClick={endpoint} disabled={disabled}>
+            <Button onClick={submitDogBreed} disabled={disabled}>
                 Submit dog breed
             </Button>
         </Container>

@@ -1,15 +1,14 @@
-const express = require('express')
-const { graphql, GraphQLSchema, GraphQLObjectType, GraphQLString } = require('graphql')
-const { graphqlHTTP } = require('express-graphql')
-// const { buildSchema } = require('graphql')
-const cors = require('cors')
-const multer = require('multer')
-const fs = require('fs')
-const path = require('path')
+import express, { Request, Response } from 'express'
+import { GraphQLSchema, GraphQLObjectType, GraphQLString } from 'graphql'
+import { graphqlHTTP } from 'express-graphql'
+import cors from 'cors'
+import multer from 'multer'
+import fs from 'fs'
+import path from 'path'
 
-let generateDogs = () => {
+const generateDogs = () => {
     return new Promise((res, rej) => {
-        fs.readdir('public/images', (err, files) => {
+        fs.readdir('public/images', (err: NodeJS.ErrnoException, files: string[]) => {
             if (err) {
                 rej(err)
             }
@@ -20,35 +19,19 @@ let generateDogs = () => {
 
 const storage = multer.diskStorage({
     destination: 'public/images/',
-    filename: function (req, file, cb) {
+    filename: (req: Request, file: Express.Multer.File, cb: (a: null, b: string) => void) => {
         cb(null, req.body.dogBreed.toLowerCase().replace(' ', '_') + `.${file.originalname.split('.')[1]}`)
     },
 })
 
 const upload = multer({ storage })
-
-// const schema = buildSchema(`
-//   type Query {
-//     images: String
-//   }
-
-//   type Dog {
-//     id: String
-//     image: String
-//   }
-
-//   type FindDog {
-//     dog: [Dog]
-//   }
-// `)
-
 const schema = new GraphQLSchema({
     query: new GraphQLObjectType({
         name: 'Query',
         fields: () => ({
             dogs: {
                 type: GraphQLString,
-                resolve: async () => await generateDogs().then((a) => JSON.stringify(a)),
+                resolve: async () => await generateDogs().then((dogList) => JSON.stringify(dogList)),
             },
         }),
     }),
@@ -56,16 +39,7 @@ const schema = new GraphQLSchema({
 
 const root = {
     images: async () => {
-        return await generateDogs().then((a) => JSON.stringify(a))
-    },
-    dog: async () => {
-        return 'test'
-    },
-}
-
-const findDog = {
-    dog: async () => {
-        return await generateDogs().then((a) => JSON.stringify(a))
+        return await generateDogs().then((dogList) => JSON.stringify(dogList))
     },
 }
 
@@ -73,7 +47,7 @@ const app = express()
 app.use(cors())
 app.use(express.static('public'))
 
-app.post('/upload', upload.single('dogFile'), async (req, res) => {
+app.post('/upload', upload.single('dogFile'), async (_, res: Response) => {
     const dogsList = await generateDogs()
     return res.send({ images: dogsList })
 })
@@ -95,4 +69,5 @@ app.use(
         graphiql: true,
     }),
 )
+
 app.listen(4000)

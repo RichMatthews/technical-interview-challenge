@@ -1,70 +1,27 @@
-# Getting Started with Create React App
+## Vetspire Take-home Challenge
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### Using the app
 
-## Available Scripts
+Start by cloning the app: `git clone https://github.com/RichMatthews/technical-interview-challenge.git`
+then `cd technical-intervie-challenge`
+You can run the app by opening another terminal. In the first terminal start the server with: `npm run start-server`, in the second, run the app with `npm run start-app`
+This will take you to http://localhost:3000 where you can observer the app and add a new dog breed
 
-In the project directory, you can run:
+### Features
 
-### `npm start`
+All features including the bonus feature have been built
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Tech Stack
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+I decided to build the app with the following techologies: Typescript, React, React Router, GraphQL, Express.
 
-### `npm test`
+### Some notable decisions
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+-   I would normally use Apollo alongside GraphQL but in the interests of time I thought it would be quicker to hook GraphQL in with http. Also it's something I've not done before so thought it would be a good learning experience
+-   Typescript was used to make the code more Robust
 
-### `npm run build`
+### Potential improvements if I had longer
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+-   I would look into caching mechanisms with GraphQL to see if I could minimize the backend requests
+-   I used a custom hook to not repeat code. If I had more time I would look at improving this and potentially using some more elsewhere.
+-   The design isn't great (apologies!), if I had longer I would spend time making this look better and adaptable for mobile users / smaller screens

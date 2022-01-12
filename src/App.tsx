@@ -5,9 +5,13 @@ import { ContentPage } from 'components/ContentPage'
 import { Add } from 'components/Add'
 import { createGlobalStyle, ThemeProvider } from 'styled-components'
 
-const GlobalStyle = createGlobalStyle`
+type ThemeType = {
+    fontFamily: 'string'
+}
+
+const GlobalStyle = createGlobalStyle<{ theme: ThemeType }>`
   * {
-    font-family: ${(props) => props.theme.fontFamily};
+    font-family: ${({ theme }) => theme.fontFamily};
   }
 `
 

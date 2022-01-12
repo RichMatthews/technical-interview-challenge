@@ -1,8 +1,11 @@
 import React from 'react'
-import { useEffect, useState } from 'react'
+import { useMemo } from 'react'
 import { useParams } from 'react-router-dom'
 import styled from 'styled-components'
+import { useCustomQuery } from 'hooks/useCustomQuery'
+import { Dog } from 'types'
 import { formatName } from 'utils/formatName'
+import { query } from 'queries/getDogs'
 
 const Container = styled.div`
     height: 200px;
@@ -15,28 +18,21 @@ const Image = styled.img`
 `
 
 export const ContentPage = () => {
-    const [dog, setDog] = useState(null)
     const { dogId } = useParams()
+    const { data } = useCustomQuery<Dog[]>({
+        endpoint: 'dogs',
+        body: JSON.stringify({
+            query,
+        }),
+        dataPoint: 'dogs',
+    })
 
-    useEffect(() => {
-        fetch('http://localhost:4000/dogs', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                query: `query GetDogs{
-                    dogs
-                }`,
-            }),
-        })
-            .then((res) => res.json())
-            .then((res) => JSON.parse(res?.data.dogs))
-            .then((dogs) => setDog(dogs.find((dog) => dog.id === dogId)))
-    }, [dogId])
+    const dog: Dog = useMemo(() => data?.find((dog: Dog) => dog.id === dogId), [data, dogId])
 
     return (
         <Container>
             <h3>{formatName(dog?.id)}</h3>
-            <Image src={`http://localhost:3000/images/${dogId}.jpg`} alt={dogId} />
+            <Image src={`http://localhost:3000/images/${dog?.image}`} alt={dogId} />
         </Container>
     )
 }
