@@ -38,3 +38,4 @@ I decided to build the app with the following techologies: Typescript, React, Re
 -   I would look into caching mechanisms with GraphQL to see if I could minimize the backend requests
 -   I used a custom hook to not repeat code. If I had more time I would look at improving this and potentially using some more elsewhere.
 -   The design isn't great (apologies!), if I had longer I would spend time making this look better and adaptable for mobile users / smaller screens
+-   Add error handling around the network requests. Ensure there was something displayed to the user if a request failed 
