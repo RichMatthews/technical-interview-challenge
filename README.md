@@ -2,9 +2,18 @@
 
 ### Using the app
 
-Start by cloning the app: `git clone https://github.com/RichMatthews/technical-interview-challenge.git`
-then `cd technical-intervie-challenge`
-You can run the app by opening another terminal. In the first terminal start the server with: `npm run start-server`, in the second, run the app with `npm run start-app`
+Start by cloning the app:
+
+`git clone https://github.com/RichMatthews/technical-interview-challenge.git`
+
+then
+
+`cd technical-interview-challenge`
+
+You can run the app by opening another terminal.
+
+In the first terminal start the server with: `npm run start-server`, in the second, run the app with `npm run start-app`
+
 This will take you to http://localhost:3000 where you can observer the app and add a new dog breed
 
 ### Features
